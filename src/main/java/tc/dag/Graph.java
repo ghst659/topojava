@@ -84,18 +84,18 @@ public class Graph<T> {
     protected synchronized Set<T> traceNodes(T node, Direction dir) {
         Set<T> result = new HashSet<>();
         if (this.hasNode(node)) {
-            Set<T> visited = new HashSet<>();
             Deque<T> pending = new LinkedList<>();
             pending.add(node);
             while (!pending.isEmpty()) {
                 T current = pending.removeFirst();
-                result.add(current);
-                for (T neighbour : this.getNeighbours(current, dir)) {
-                    if (! visited.contains(neighbour)) {
-                        pending.add(neighbour);
+                if (! result.contains(current)) {
+                    result.add(current);
+                    for (T neighbour : this.getNeighbours(current, dir)) {
+                        if (! result.contains(neighbour)) {
+                            pending.add(neighbour);
+                        }
                     }
                 }
-                visited.add(current);
             }
         }
         return result;
