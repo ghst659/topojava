@@ -212,7 +212,7 @@ public class Rabbit<T, V> {
          */
         public synchronized void await(long timeout) throws InterruptedException {
             if (!this.state) {
-                this.wait(timeout);
+                this.wait(timeout);  // releases this's monitor to other threads
             }
         }
     }
